@@ -1,0 +1,28 @@
+{
+  "name": "rss-aggregator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "rss-agg": "index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "rss-agg": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/commander": "^2.12.5",
+    "@types/express": "^5.0.0",
+    "axios": "^1.7.9",
+    "commander": "^13.0.0",
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3",
+    "xml2js": "^0.6.2"
+  }
+}
