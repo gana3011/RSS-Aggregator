@@ -8,7 +8,8 @@
   },
   "type": "module",
   "scripts": {
-    "rss-agg": "node index.js"
+    "rss-agg": "node index.js",
+     "start":"nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "axios": "^1.7.9",
     "commander": "^13.0.0",
     "express": "^4.21.2",
+    "nodemon": "^3.1.9",
     "pg": "^8.13.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
