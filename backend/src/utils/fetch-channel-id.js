@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 async function fetchChannelId(handle) {
-    const apiKey = process.env.YT_API_KEY; // Replace with your actual API key
+    const apiKey = process.env.YT_API_KEY; 
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${handle}&key=${apiKey}`;
 
     try {
