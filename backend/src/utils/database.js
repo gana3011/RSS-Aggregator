@@ -6,6 +6,6 @@ export const pool = new Pool({
     password: 'imntr8ay',
     host: 'localhost',
     port: 5432,
-    database: 'ytrssagg'
+    database: 'yt_rss_agg'
 });
 
