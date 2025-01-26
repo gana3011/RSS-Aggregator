@@ -7,14 +7,14 @@ export const saveChannels = async(req, res)=>{
 
     const id= req.params.id; 
     
-    const {url} = req.body;
+    const {name, url} = req.body;
 
-    if (!url || typeof url !== 'string') {
+    if ((!url || typeof url !== 'string') && (!name || typeof name != 'string')) {
         return res.status(400).send({ error: "Invalid or missing 'url' in request body." });
     }
     
     try {
-        const rssId = await fetchChannelId(url);
+        const rssId = await fetchChannelId(name, url);
         const client = await pool.connect();
         try {
             client.query('begin');
@@ -46,4 +46,6 @@ export const saveChannels = async(req, res)=>{
     }
     
 }
+
+
 
