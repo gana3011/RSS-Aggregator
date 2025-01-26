@@ -1,8 +1,8 @@
 import axios from 'axios';
 import xml2js from 'xml2js';
 
-export const fetchVideos = async(channelId) =>{
-    const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+export const fetchVideos = async(rssId) =>{
+    const rss = `https://www.youtube.com/feeds/videos.xml?channel_id=${rssId}`;
     const response = await axios.get(rss);
     const parser = new xml2js.Parser({explicitArray:false});
     const result = await parser.parseStringPromise(response.data);

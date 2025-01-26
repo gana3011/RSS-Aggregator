@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users/:id", channelRoutes);
-app.use("/api/users/:id/channels", videoRoutes);
+// app.use("/api/users/:id/channels", videoRoutes);
 
 app.listen(3000, () => {
   console.log("listening on port 3000");
