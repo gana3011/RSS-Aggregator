@@ -2,6 +2,7 @@ import { Password } from "../utils/password.js";
 import jwt from "jsonwebtoken";
 import { pool } from "../utils/database.js";
 
+
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
   try {
