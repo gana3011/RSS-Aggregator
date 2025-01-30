@@ -2,26 +2,30 @@ import { pool } from '../utils/database.js';
 import { fetchChannelDetails } from '../utils/fetch-channel-details.js';
 import { fetchChannelId } from '../utils/fetch-channel-id.js';
 import { fetchVideos } from '../utils/fetch-videos.js';
+import { fetchSubscribers } from "../utils/fetch-subscribers.js";
 
 export const saveChannels = async(req, res)=>{
 
     const id= req.params.id; 
     
-    const {url} = req.body;
+    const {name, url} = req.body;
 
-    if (!url || typeof url !== 'string') {
+    if ((!url || typeof url !== 'string') && (!name || typeof name != 'string')) {
         return res.status(400).send({ error: "Invalid or missing 'url' in request body." });
     }
     
     try {
-        const rssId = await fetchChannelId(url);
+        const rssId = await fetchChannelId(name, url);
+        console.log(rssId);
+        const subscribers = await fetchSubscribers(rssId);
+        console.log(subscribers);
         const client = await pool.connect();
         try {
             client.query('begin');
 
             const {channelId, channelName, channelUrl} = await fetchChannelDetails(rssId);
         
-            const channel = await client.query("insert into channels(channel_id,channel_url,channel_name) values($1,$2,$3) on conflict (channel_id) do update set channel_url = excluded.channel_url, channel_name = excluded.channel_name",[channelId, channelUrl, channelName]);
+            const channel = await client.query("insert into channels(channel_id,channel_url,channel_name,subscribers) values($1,$2,$3,$4) on conflict (channel_id) do update set channel_url = excluded.channel_url, channel_name = excluded.channel_name, subscribers = excluded.subscribers",[channelId, channelUrl, channelName, subscribers]);
             const user_channel = await client.query("insert into user_channels (user_id,channel_id) values ($1,$2) on conflict(user_id, channel_id) do nothing",[id, channelId]);
 
             const videos = await fetchVideos(rssId);
@@ -46,4 +50,6 @@ export const saveChannels = async(req, res)=>{
     }
     
 }
+
+
 

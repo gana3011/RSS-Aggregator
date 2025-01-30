@@ -1,8 +1,8 @@
 import express from 'express';
-import { saveVideos } from '../controllers/videoController.js';
+import {getVideos} from '../controllers/videoController.js'
 
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
-router.post("/:channelId/videos",saveVideos);
+router.get("/videos",getVideos);
 
 export default router;
