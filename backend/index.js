@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import authRoutes from "./src/routes/authRoutes.js";
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -9,6 +10,7 @@ dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users/:id", channelRoutes);

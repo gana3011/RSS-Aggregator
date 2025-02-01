@@ -2,7 +2,7 @@ import { pool } from '../utils/database.js';
 import { fetchChannelDetails } from '../utils/fetch-channel-details.js';
 import { fetchChannelId } from '../utils/fetch-channel-id.js';
 import { fetchVideos } from '../utils/fetch-videos.js';
-import { fetchSubscribers } from "../utils/fetch-subscribers.js";
+import { fetchSubscribers } from '../utils/fetch-subscribers.js';
 
 export const saveChannels = async(req, res)=>{
 
@@ -16,10 +16,8 @@ export const saveChannels = async(req, res)=>{
     
     try {
         const rssId = await fetchChannelId(name, url);
-        console.log(rssId);
-        const subscribers = await fetchSubscribers(rssId);
-        console.log(subscribers);
         const client = await pool.connect();
+        const subscribers = await fetchSubscribers(rssId)
         try {
             client.query('begin');
 
