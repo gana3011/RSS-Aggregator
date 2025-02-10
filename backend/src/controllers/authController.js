@@ -30,13 +30,14 @@ export const signup = async (req, res) => {
     await pool.query("insert into users(name,email,password) values($1,$2,$3)",[name,email,hashedPassword]);
 
     const token = jwt.sign({email}, process.env.JWT_KEY, {expiresIn: "1h"});
-    const verificationLink = `http://localhost:3000/verify/${token}`;
+    
+    const verificationLink = `http://localhost:5173/verifyEmail/${token}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Verify your email",
-      text: `Click on the link ${verificationLink} to verify your gmail`
+      text: `Click the link below to verify your email:\n${verificationLink}`
     });
 
     return res.status(200).send({ message: "Verification mail sent, check your inbox"});
@@ -50,7 +51,10 @@ export const signup = async (req, res) => {
 export const verifyEmail = async(req, res) =>{
   try{
     const {token} = req.params;
-    const decoded  = jwt.decode(token, process.env.JWT_KEY);
+    
+    if (!token) return res.status(400).json({ message: "No token found" });
+
+    const decoded  = jwt.verify(token, process.env.JWT_KEY);
 
     const user = await pool.query("select * from users where email=$1",[decoded.email]);
 
@@ -61,7 +65,7 @@ export const verifyEmail = async(req, res) =>{
     res.status(200).send({message: "Email verified successfully"});
     }
     catch(err){
-      res.send({message:"Invalid JWT"});
+      res.send({message:"No token"});
       console.log(err.message);
     }
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const AuthForm = () => {
+const SignupForm = () => {
 
   const [formData, setFormData] = useState({
     name: "",
@@ -118,7 +119,7 @@ const AuthForm = () => {
 
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
-              <a href="#" className="text-gray-700 underline">Log in</a>.
+              <div className="text-gray-700 underline"><Link to="/signin">Log in.</Link></div>
             </p>
           </div>
           {message &&
@@ -133,4 +134,4 @@ const AuthForm = () => {
   )
 }
 
-export default AuthForm;
+export default SignupForm;

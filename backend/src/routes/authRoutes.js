@@ -30,6 +30,7 @@ router.post(
   signin
 );
 
-router.get("/verify/:token", verifyEmail);
+router.get("/verifyemail/:token",verifyEmail);
+
 
 export default router;
