@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const SigninForm = () => {
+  
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -18,14 +21,19 @@ const SigninForm = () => {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const {email, password} = formData;
-    console.log(formData)
     try{
     const response = await axios.post("http://localhost:3000/api/auth/signin",formData);
+    const{token, id} = response.data;
     setMessage(response.data.message);
+    localStorage.setItem("token", token);
+    localStorage.setItem("userId", id);
     setFormData({
       email: "",
       password: "",
     });
+    setTimeout(()=>{
+      navigate("/channelForm");
+    },2000);
     }
     catch(err){
       console.error(err.response?.data);

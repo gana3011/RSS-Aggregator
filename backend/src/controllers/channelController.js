@@ -49,5 +49,15 @@ export const saveChannels = async(req, res)=>{
     
 }
 
+export const fetchChannels = async(req,res)=>{
+    const id= req.params.id; 
+    try {
+        const response = await pool.query("select c.channel_id, c.channel_url, c.channel_name, c.subscribers from channels c inner join user_channels uc on c.channel_id = uc.channel_id where uc.user_id=$1",[id]);
+        res.status(200).send({channels:response.rows});
+    } catch (error) {
+        res.status(500).send({message:"Unable to fetch channel details"});
+        console.error(error.message);
+    }
+}
 
 

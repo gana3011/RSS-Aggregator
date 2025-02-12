@@ -92,6 +92,7 @@ export const signin = async (req, res) => {
       {
         id: existingUser.id,
         email: existingUser.email,
+        name: existingUser.name,
       },
       process.env.JWT_KEY
     );

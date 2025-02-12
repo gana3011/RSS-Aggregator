@@ -1,6 +1,5 @@
 import { pool } from "../utils/database.js";
 
-
 export const getVideos  = async (req,res) => {
    const channelId = req.params.channelId;
    
