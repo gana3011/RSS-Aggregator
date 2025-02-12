@@ -36,7 +36,7 @@ const SignupForm = () => {
     }
     catch(err){
       console.error(err.message);
-      setMessage(err.message);
+      setMessage(err.response.message);
     }
   }
   } 
@@ -117,10 +117,10 @@ const SignupForm = () => {
               Create an account
             </button>
 
-            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+            <div className="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
               <div className="text-gray-700 underline"><Link to="/signin">Log in.</Link></div>
-            </p>
+            </div>
           </div>
           {message &&
           <p>{message}</p>}

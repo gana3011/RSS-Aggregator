@@ -7,20 +7,26 @@ const Form = () => {
   const[name, setName] = useState("");
   const[url, setUrl] = useState("");
   const[message, setMessage] = useState("");
+  const[refresh, setRefresh] = useState(0);
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
     
     const data = {name, url};
     try {
-      const response = await axios.post(`http://localhost:3000/api/users/${localStorage.getItem("userId")}/channels`, data);
-      setMessage(response.data.message)``
+      const response = await axios.post(`http://localhost:3000/api/users/${localStorage.getItem("userId")}/channels`,data, {
+        headers:{
+          Authorization :  `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setMessage(response.data.message);
+      setRefresh((prev) => prev + 1);
     } catch (error) {
       console.error(error.message);
-      setMessage(error.message);
+      setMessage(error.response?.data.message);
     } 
-    setName(" ");
-    setUrl(" ");
+    setName("");
+    setUrl("");
   }
 
   return (
@@ -78,7 +84,7 @@ const Form = () => {
     </main>
   </div>
 </section>
-<VideoSlider />
+<VideoSlider refresh={refresh}/>
 </div>
   )
 }
