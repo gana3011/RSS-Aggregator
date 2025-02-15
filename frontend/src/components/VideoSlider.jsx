@@ -3,19 +3,19 @@ import React, { useEffect, useState} from 'react'
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { useAuth } from '../../AuthContext.jsx'
 
 
 const VideoSlider = ({refresh}) => {
   const [channels,setChannels] = useState([]);
   const [videos, setVideos] = useState({});
+  const {user} = useAuth();
   useEffect(()=>{
     const fetchChannel = async()=>{
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${localStorage.getItem("userId")}/channels`,{
-          headers:{
-            Authorization :  `Bearer ${localStorage.getItem("token")}`
-          }
-        });
+        const response = await axios.get(`http://localhost:3000/api/users/${user.id}/channels`,
+          { withCredentials: true}
+        );
         if (response.data && Array.isArray(response.data.channels)) {
           setChannels(response.data.channels);
         } else {
@@ -38,10 +38,8 @@ useEffect(() => {
 
   const fetchVideos = async(channelId, channelName) =>{
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${localStorage.getItem("userId")}/channels/${channelId}/videos`,{
-          headers:{
-            Authorization :  `Bearer ${localStorage.getItem("token")}`
-          }
+        const response = await axios.get(`http://localhost:3000/api/users/${user.id}/channels/${channelId}/videos`,{
+          withCredentials: true
         });
         setVideos((prevVideos)=>({
           ...prevVideos, [channelName] : response.data.videos || []

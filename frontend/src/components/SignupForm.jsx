@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-// import {jwtDecode} from "jwt-decode";
-// import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext.jsx';
 
 const SignupForm = () => {
+
+  const navigate = useNavigate();
+
+  const {user, checkAuth } = useAuth();
+
+  useEffect(()=>{
+    checkAuth();
+    if(user){
+      navigate("/channelForm");
+    }
+    console.log("signup and login");
+  },[user]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -12,8 +23,9 @@ const SignupForm = () => {
     password: "",
     password_confirmation: "",
   });
-  const [loading, setLoading] = useState(false);
+
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e)=>{
     setFormData({...formData,[e.target.name] : e.target.value});
@@ -132,7 +144,7 @@ const SignupForm = () => {
               Already have an account?
               <div className="text-gray-700 underline"><Link to="/signin">Log in.</Link></div>
             </div>
-          </div>
+           </div>
           {message &&
           <p>{message}</p>}
         </form>

@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext.jsx';
 
 
 const SigninForm = () => {
   
   const navigate = useNavigate();
+
+  const {checkAuth}  = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -24,10 +27,11 @@ const SigninForm = () => {
     setLoading(true);
     const {email, password} = formData;
     try{
-    const response = await axios.post("http://localhost:3000/api/auth/signin",formData);
+    const response = await axios.post("http://localhost:3000/api/auth/signin",formData,{withCredentials:true});
     const{token, id} = response.data;
-    localStorage.setItem("token", token);
-    localStorage.setItem("userId", id);
+    await checkAuth();
+    // localStorage.setItem("token", token);
+    // localStorage.setItem("userId", id);
     setFormData({
       email: "",
       password: "",
@@ -89,10 +93,10 @@ const SigninForm = () => {
 >
   {loading ? "Wait..." : "Signin"}
 </button>
-            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+            <div className="mt-4 text-sm text-gray-500 sm:mt-0">
               Don't have an account?
              <div className="text-gray-700 underline"><Link to="/">Sign up.</Link></div>
-            </p>
+            </div>
           </div>
           {message &&
           <p>{message}</p>}

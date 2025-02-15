@@ -1,55 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import VideoSlider from './VideoSlider.jsx';
+import { useAuth } from '../../AuthContext.jsx';
+
 // import { useNavigate } from 'react-router-dom';
 // import jwtDecode from "jwt-decode";
 
 
 const Form = () => {
-  // const navigate = useNavigate();
-
-  // useEffect(()=>{
-  //   const token = localStorage.getItem("token");
-
-  //   if (!token) {
-  //     navigate("/");
-  //     return;
-  //   }
-  
-  //   try {
-  //     const decodedToken = jwtDecode(token);
-  //     const currentTime = Date.now() / 1000;
-  
-  //     if (decodedToken.exp < currentTime) {
-  //       localStorage.removeItem("token");
-  //       localStorage.removeItem("userId");
-  //       navigate("/signin");
-  //     }
-  //   } catch (error) {
-  //     console.error("Invalid token", error);
-  //     localStorage.removeItem("token");
-  //     localStorage.removeItem("userId");
-  //     navigate("/signin");
-  //   }
-  // },[navigate]);
-
   const[name, setName] = useState("");
   const[url, setUrl] = useState("");
   const[message, setMessage] = useState("");
   const[refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
+  const{user, checkAuth} = useAuth();
+
+  useEffect(()=>{
+    console.log(user);
+  },[]);
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    checkAuth();
     setLoading(true);
     
     const data = {name, url};
     try {
-      const response = await axios.post(`http://localhost:3000/api/users/${localStorage.getItem("userId")}/channels`,data, {
-        headers:{
-          Authorization :  `Bearer ${localStorage.getItem("token")}`
-        }
-      });
+      const response = await axios.post(`http://localhost:3000/api/users/${user.id}/channels`,data, 
+      { withCredentials: true});
       setMessage(response.data.message);
       setRefresh((prev) => prev + 1);
     } catch (error) {

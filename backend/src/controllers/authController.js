@@ -98,9 +98,22 @@ export const signin = async (req, res) => {
       {expiresIn: "7d"}
     );
 
+    res.cookie("authToken", userJWT, {
+      httpOnly: true,
+      // secure: process.env.NODE_ENV === "production", 
+      sameSite: "Lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  console.log(res.cookies);
     res.json({ token:userJWT, id:existingUser.id, message: "User logged in successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).send({message : "Server error! Try again"});
   }
 };
+
+export const verifyUser = async(req,res)=>{
+  res.json({user:req.user});
+  console.log(req.user);
+}

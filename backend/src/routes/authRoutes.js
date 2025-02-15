@@ -1,8 +1,10 @@
 import express from "express";
 import { body } from "express-validator";
 import { RequestValidation } from "../middlewares/request-validation.js";
-import { signup, signin, verifyEmail } from "../controllers/authController.js";
+import { signup, signin, verifyEmail, verifyUser } from "../controllers/authController.js";
 // import { RequireAuth } from "../middlewares/require-auth.js";
+import { CheckAuth } from "../middlewares/check-auth.js";
+
 
 const router = express.Router();
 
@@ -31,6 +33,13 @@ router.post(
 );
 
 router.get("/verifyemail/:token",verifyEmail);
+
+router.get("/verify",CheckAuth,verifyUser);
+
+router.get("/seeCookie",(req,res)=>{
+  console.log(req.cookies);
+}
+)
 
 
 export default router;

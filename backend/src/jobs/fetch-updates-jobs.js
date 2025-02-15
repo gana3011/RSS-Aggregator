@@ -3,7 +3,7 @@ import { fetchUpdates } from '../utils/fetch-updates.js';
 import { pool } from '../utils/database.js';
 
 export const startCronJob = ()=>{
-    cron.schedule("*/5 * * * *", async()=>{
+    cron.schedule("0 * * * *", async()=>{
         console.log("running scheduled updates");
         try {
             const { rows: users } = await pool.query("SELECT DISTINCT user_id FROM user_channels");
