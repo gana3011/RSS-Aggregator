@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchSubscribers = async (channelId) =>{
-    const apiKey = process.env.YT_API_KEY;
+    const apiKey = "AIzaSyDfSbgb7-aGNX04oMm3kOjmxfea1L36qHE";
     try{
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/channels`, {
             params: {

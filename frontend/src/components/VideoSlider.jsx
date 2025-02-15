@@ -81,12 +81,13 @@ useEffect(() => {
       },
     ],
   }
-
-  return (
+  
+return (
     <div className="youtube-channel-slider">
      <div className="channel-info">
          {channels.map((channel)=>(
           <div key={channel.channel_id}>
+            <img src={channel.profile} alt='channel profile pic' />
             <a href={channel.channel_url} target='_blank' rel='noopener noreferrer'><h2>{channel.channel_name}</h2></a>
             <p><strong>Subscribers:</strong>{channel.subscribers}</p>
             <Slider {...settings}>

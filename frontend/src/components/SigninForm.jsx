@@ -13,6 +13,7 @@ const SigninForm = () => {
   });
 
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e)=>{
     setFormData({...formData,[e.target.name] : e.target.value});
@@ -20,24 +21,25 @@ const SigninForm = () => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    setLoading(true);
     const {email, password} = formData;
     try{
     const response = await axios.post("http://localhost:3000/api/auth/signin",formData);
     const{token, id} = response.data;
-    setMessage(response.data.message);
     localStorage.setItem("token", token);
     localStorage.setItem("userId", id);
     setFormData({
       email: "",
       password: "",
     });
-    setTimeout(()=>{
-      navigate("/channelForm");
-    },2000);
+    navigate("/channelForm");
     }
     catch(err){
       console.error(err.response?.data);
       setMessage(err.response?.data.message);
+    }
+    finally{
+      setLoading(false);
     }
   } 
   return (
@@ -77,11 +79,16 @@ const SigninForm = () => {
             />
           </div>
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button
-              className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:ring-3 focus:outline-hidden"
-            >
-             Login
-            </button>
+          <button
+  disabled={loading}
+  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
+    loading
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
+  }`}
+>
+  {loading ? "Wait..." : "Signin"}
+</button>
             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
               Don't have an account?
              <div className="text-gray-700 underline"><Link to="/">Sign up.</Link></div>

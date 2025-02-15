@@ -1,16 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import VideoSlider from './VideoSlider.jsx';
+// import { useNavigate } from 'react-router-dom';
+// import jwtDecode from "jwt-decode";
+
 
 const Form = () => {
+  // const navigate = useNavigate();
+
+  // useEffect(()=>{
+  //   const token = localStorage.getItem("token");
+
+  //   if (!token) {
+  //     navigate("/");
+  //     return;
+  //   }
+  
+  //   try {
+  //     const decodedToken = jwtDecode(token);
+  //     const currentTime = Date.now() / 1000;
+  
+  //     if (decodedToken.exp < currentTime) {
+  //       localStorage.removeItem("token");
+  //       localStorage.removeItem("userId");
+  //       navigate("/signin");
+  //     }
+  //   } catch (error) {
+  //     console.error("Invalid token", error);
+  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("userId");
+  //     navigate("/signin");
+  //   }
+  // },[navigate]);
 
   const[name, setName] = useState("");
   const[url, setUrl] = useState("");
   const[message, setMessage] = useState("");
   const[refresh, setRefresh] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    setLoading(true);
     
     const data = {name, url};
     try {
@@ -24,6 +55,9 @@ const Form = () => {
     } catch (error) {
       console.error(error.message);
       setMessage(error.response?.data.message);
+    }
+    finally{
+      setLoading(false);
     } 
     setName("");
     setUrl("");
@@ -71,11 +105,16 @@ const Form = () => {
           </div>
 
           <div className="col-span-6 sm:flex-column sm:items-center sm:gap-4">
-            <button
-              className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:ring-3 focus:outline-hidden"
-            >
-              Add
-            </button>
+          <button
+  disabled={loading}
+  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
+    loading
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
+  }`}
+>
+  {loading ? "Adding..." : "Add"}
+</button>
           </div>
           {message &&
           <p>{message}</p>}
