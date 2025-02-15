@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+// import {jwtDecode} from "jwt-decode";
+// import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
 
@@ -10,7 +12,7 @@ const SignupForm = () => {
     password: "",
     password_confirmation: "",
   });
-
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleChange = (e)=>{
@@ -19,6 +21,7 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    setLoading(true);
     const {name, email, password} = formData;
     if(!(password === formData.password_confirmation)){
       setMessage("Enter the password correctly");
@@ -36,8 +39,11 @@ const SignupForm = () => {
     }
     catch(err){
       console.error(err.message);
-      setMessage(err.message);
+      setMessage(err.response.message);
     }
+    finally{
+      setLoading(false);
+    } 
   }
   } 
   return (
@@ -111,16 +117,21 @@ const SignupForm = () => {
           </div>
 
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-            <button
-              className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:ring-3 focus:outline-hidden"
-            >
-              Create an account
-            </button>
+          <button
+  disabled={loading}
+  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
+    loading
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
+  }`}
+>
+  {loading ? "Wait..." : "Create an account"}
+</button>
 
-            <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+            <div className="mt-4 text-sm text-gray-500 sm:mt-0">
               Already have an account?
               <div className="text-gray-700 underline"><Link to="/signin">Log in.</Link></div>
-            </p>
+            </div>
           </div>
           {message &&
           <p>{message}</p>}

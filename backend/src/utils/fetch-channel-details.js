@@ -13,7 +13,7 @@ export const fetchChannelDetails = async (rssId) =>{
         return {channelId, channelName, channelUrl};
     } catch (error) {
         console.error(error.message);
-        return res.send({error:"Unable to fetch channel details"});
+        return ({error:"Unable to fetch channel details"});
     }
    
 }

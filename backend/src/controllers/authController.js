@@ -94,7 +94,8 @@ export const signin = async (req, res) => {
         email: existingUser.email,
         name: existingUser.name,
       },
-      process.env.JWT_KEY
+      process.env.JWT_KEY,
+      {expiresIn: "7d"}
     );
 
     res.json({ token:userJWT, id:existingUser.id, message: "User logged in successfully" });
