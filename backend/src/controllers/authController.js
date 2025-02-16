@@ -103,6 +103,7 @@ export const signin = async (req, res) => {
       // secure: process.env.NODE_ENV === "production", 
       sameSite: "Lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",       
   });
 
   console.log(res.cookies);
@@ -114,6 +115,8 @@ export const signin = async (req, res) => {
 };
 
 export const verifyUser = async(req,res)=>{
-  res.json({user:req.user});
+  if(!req.user) return res.status(401).json({ message: "Unauthorized" });
+  console.log(req.user);
+  res.status(200).send({user:req.user});
   console.log(req.user);
 }

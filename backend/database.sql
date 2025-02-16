@@ -6,4 +6,4 @@ create table channels(channel_id varchar(255) primary key, channel_url varchar(2
 
 create table user_channels(user_id int references users(id), channel_id varchar(255) references channels(channel_id), primary key(user_id, channel_id));
 
-create table videos(video_id varchar(255) primary key, channel_id varchar(255) references channels(channel_id), title varchar(255) not null, link varchar(255) not null, thumbnailurl varchar(255) not null, views int not null);
+create table videos(video_id varchar(255) primary key, channel_id varchar(255) references channels(channel_id), title varchar(255) not null, link varchar(255) not null, thumbnailurl varchar(255) not null, views int not null, published date not null);

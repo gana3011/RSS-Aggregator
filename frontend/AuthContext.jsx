@@ -7,30 +7,33 @@ const AuthContext = createContext();
 // Auth Provider Component
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // Function to check if the user is authenticated
     const checkAuth = useCallback(async () => {
-        // setLoading(true);
         try {
             const response = await axios.get("http://localhost:3000/api/auth/verify", { withCredentials: true });
-            console.log(response.data.user);
             setUser(response.data.user); // Store user data in state
         } catch (error) {
             setUser(null); // User is not authenticated
         }
-        finally{
-            // setLoading(false);
+        finally {
+            setLoading(false); // Set loading to false after API call
         }
-    },[]);
+    }, []);
 
     // Run authentication check when app starts
     useEffect(() => {
         checkAuth();
     }, [checkAuth]);
 
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
+
+
     return (
-        <AuthContext.Provider value={{ user, setUser, checkAuth }}>
+        <AuthContext.Provider value={{ user, setUser, checkAuth, loading }}>
             {children}
         </AuthContext.Provider>
     );

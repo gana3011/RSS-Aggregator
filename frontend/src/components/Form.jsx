@@ -3,9 +3,6 @@ import axios from 'axios';
 import VideoSlider from './VideoSlider.jsx';
 import { useAuth } from '../../AuthContext.jsx';
 
-// import { useNavigate } from 'react-router-dom';
-// import jwtDecode from "jwt-decode";
-
 
 const Form = () => {
   const[name, setName] = useState("");
@@ -14,10 +11,6 @@ const Form = () => {
   const[refresh, setRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
   const{user, checkAuth} = useAuth();
-
-  useEffect(()=>{
-    console.log(user);
-  },[]);
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
@@ -43,67 +36,72 @@ const Form = () => {
 
   return (
     <div>
-    <section className="bg-white">
-    <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-    <main
-      className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6"
-    >
-      <div className="max-w-xl lg:max-w-3xl">
-
-        <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
-
-          <div className="col-span-6 sm:col-span-3">
-            <label htmlFor="ChannelName" className="block text-sm font-medium text-gray-700">Channel Name</label>
-
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e)=>setName(e.target.value)}
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
-              required
-            />
-          </div>
-
-          <div className="col-span-6 sm:col-span-3">
-            <label htmlFor="Url" className="block text-sm font-medium text-gray-700">
-              Url
-            </label>
-
-            <input
-              type="text"
-              id="url"
-              name="url"
-              value={url}
-              onChange={(e)=>setUrl(e.target.value)}
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
-              required
-            />
-          </div>
-
-          <div className="col-span-6 sm:flex-column sm:items-center sm:gap-4">
-          <button
-  disabled={loading}
-  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
-    loading
-      ? "bg-gray-400 cursor-not-allowed"
-      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
-  }`}
->
-  {loading ? "Adding..." : "Add"}
-</button>
-          </div>
-          {message &&
-          <p>{message}</p>}
-        </form>
+      <section className="bg-white">
+        <div className="lg:grid lg:min-h-[80vh] lg:grid-cols-12"> {/* Reduced min height */}
+          <main className="flex items-center justify-center px-8 py-4 sm:px-12 lg:col-span-7 lg:px-16 lg:py-8 xl:col-span-6">
+            <div className="max-w-xl lg:max-w-3xl">
+              <form onSubmit={handleSubmit} className="mt-4 grid grid-cols-6 gap-4 items-end"> {/* Reduced mt-8 to mt-4 */}
+                {/* Channel Name Input */}
+                <div className="col-span-6 sm:col-span-2">
+                  <label htmlFor="ChannelName" className="block text-sm font-medium text-gray-700">
+                    Channel Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+                    required
+                  />
+                </div>
+  
+                {/* URL Input */}
+                <div className="col-span-6 sm:col-span-3">
+                  <label htmlFor="Url" className="block text-sm font-medium text-gray-700">
+                    Url
+                  </label>
+                  <input
+                    type="text"
+                    id="url"
+                    name="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+                    required
+                  />
+                </div>
+  
+                {/* Button - Now placed beside input fields */}
+                <div className="col-span-6 sm:col-span-1 flex justify-end">
+                  <button
+                    disabled={loading}
+                    className={`inline-block rounded-md border border-rose-600 px-6 py-2 text-sm font-medium text-white transition ${
+                      loading
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-rose-600 hover:bg-transparent hover:text-rose-600"
+                    }`}
+                  >
+                    {loading ? "Adding..." : "Add"}
+                  </button>
+                </div>
+  
+                {/* Message Display */}
+                {message && <p className="col-span-6 text-sm text-gray-600">{message}</p>}
+              </form>
+            </div>
+          </main>
+        </div>
+      </section>
+  
+      {/* Reduce margin space between form and VideoSlider */}
+      <div className="mt-4">
+        <VideoSlider refresh={refresh} />
       </div>
-    </main>
-  </div>
-</section>
-<VideoSlider refresh={refresh}/>
-</div>
-  )
+    </div>
+  );
+  
 }
 
 export default Form;

@@ -85,17 +85,17 @@ const SigninForm = () => {
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
           <button
   disabled={loading}
-  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
+  className={`inline-block shrink-0 rounded-md border border-rose-600 px-12 py-3 text-sm font-medium text-white transition ${
     loading
       ? "bg-gray-400 cursor-not-allowed"
-      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
+      : "bg-rose-600 hover:bg-transparent hover:text-rose-600"
   }`}
 >
   {loading ? "Wait..." : "Signin"}
 </button>
             <div className="mt-4 text-sm text-gray-500 sm:mt-0">
               Don't have an account?
-             <div className="text-gray-700 underline"><Link to="/">Sign up.</Link></div>
+             <div className="text-gray-700 underline"><Link to="/signup">Sign up.</Link></div>
             </div>
           </div>
           {message &&

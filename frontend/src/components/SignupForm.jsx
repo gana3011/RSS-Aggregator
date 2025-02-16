@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../AuthContext.jsx';
+import { Link } from 'react-router-dom';
 
 const SignupForm = () => {
-
-  const navigate = useNavigate();
-
-  const {user, checkAuth } = useAuth();
-
-  useEffect(()=>{
-    checkAuth();
-    if(user){
-      navigate("/channelForm");
-    }
-    console.log("signup and login");
-  },[user]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -131,10 +118,10 @@ const SignupForm = () => {
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
           <button
   disabled={loading}
-  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
+  className={`inline-block shrink-0 rounded-md border border-rose-600 px-12 py-3 text-sm font-medium text-white transition ${
     loading
       ? "bg-gray-400 cursor-not-allowed"
-      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
+      : "bg-rose-600 hover:bg-transparent hover:text-rose-600"
   }`}
 >
   {loading ? "Wait..." : "Create an account"}

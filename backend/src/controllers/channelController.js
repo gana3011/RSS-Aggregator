@@ -33,8 +33,8 @@ export const saveChannels = async(req, res)=>{
             const videos = await fetchVideos(rssId);
 
             for(let video of videos){
-                const {id, title, link, thumbnailUrl, views} = video;
-                const query = await client.query("insert into videos(video_id, channel_id, title, link, thumbnailUrl, views) values ($1,$2,$3,$4,$5,$6) on conflict(video_id) do update set title = excluded.title, link = excluded.link, thumbnailUrl = excluded.thumbnailUrl, views = excluded.views",[id, channelId, title, link, thumbnailUrl, views]);
+                const {id, title, link, published ,thumbnailUrl, views} = video;
+                const query = await client.query("insert into videos(video_id, channel_id, title, link, thumbnailUrl, views, published) values ($1,$2,$3,$4,$5,$6,$7) on conflict(video_id) do update set title = excluded.title, link = excluded.link, thumbnailUrl = excluded.thumbnailUrl, views = excluded.views, published = excluded.published",[id, channelId, title, link, thumbnailUrl, views,published]);
             }
             client.query('commit');
             res.status(200).send({message: "Channels and Videos added successfully", rssId, channelId});

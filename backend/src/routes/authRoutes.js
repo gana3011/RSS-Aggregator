@@ -36,10 +36,6 @@ router.get("/verifyemail/:token",verifyEmail);
 
 router.get("/verify",CheckAuth,verifyUser);
 
-router.get("/seeCookie",(req,res)=>{
-  console.log(req.cookies);
-}
-)
 
 
 export default router;

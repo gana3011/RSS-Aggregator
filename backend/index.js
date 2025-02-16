@@ -18,8 +18,6 @@ app.use(cors({
   credentials: true, 
 }));
 
-let userId;
-
 app.use("/api/auth", authRoutes);
 app.use("/api/users/:id", channelRoutes);
 
