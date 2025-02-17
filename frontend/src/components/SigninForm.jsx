@@ -50,12 +50,12 @@ const SigninForm = () => {
     <div>
 
 <section className="bg-white">
-  <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+  <div className="lg:min-h-screen lg:grid-cols-12">
     <main
       className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6"
     >
       <div className="max-w-xl lg:max-w-3xl">
-        <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
+        <form onSubmit={handleSubmit} className="mt-30 grid grid-cols-6 gap-6">
           <div className="col-span-6">
             <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> Email </label>
             <input

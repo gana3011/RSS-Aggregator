@@ -1,7 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
 import { RequestValidation } from "../middlewares/request-validation.js";
-import { signup, signin, verifyEmail, verifyUser } from "../controllers/authController.js";
+import { signup, signin, verifyEmail, verifyUser, signout } from "../controllers/authController.js";
 // import { RequireAuth } from "../middlewares/require-auth.js";
 import { CheckAuth } from "../middlewares/check-auth.js";
 
@@ -35,6 +35,8 @@ router.post(
 router.get("/verifyemail/:token",verifyEmail);
 
 router.get("/verify",CheckAuth,verifyUser);
+
+router.post("/signout",signout);
 
 
 

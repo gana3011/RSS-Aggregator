@@ -81,13 +81,17 @@ useEffect(() => {
   }
   
 return (
-    <div className="youtube-channel-slider">
-     <div className="channel-info">
+    <div>
+     <div>
          {channels.map((channel)=>(
           <div key={channel.channel_id}>
-            <img src={channel.profile} alt='channel profile pic' />
+            <div className='flex items-center gap-2'>
+            <img src={channel.profile} alt='channel profile pic' className='rounded-full w-15 h-15'/>
+            <div className='flex flex-col'>
             <a href={channel.channel_url} target='_blank' rel='noopener noreferrer'><h2>{channel.channel_name}</h2></a>
             <p><strong>Subscribers:</strong>{channel.subscribers}</p>
+            </div>
+            </div>
             <Slider {...settings}>
              {videos[channel.channel_name]?.map((video)=>(
               <div key={video.video_id}>

@@ -37,8 +37,8 @@ const Form = () => {
   return (
     <div>
       <section className="bg-white">
-        <div className="lg:grid lg:min-h-[80vh] lg:grid-cols-12"> {/* Reduced min height */}
-          <main className="flex items-center justify-center px-8 py-4 sm:px-12 lg:col-span-7 lg:px-16 lg:py-8 xl:col-span-6">
+        <div className="lg:grid lg:pb-10 lg:grid-cols-12"> {/* Reduced min height */}
+          <main className="flex justify-center px-4 py-4 sm:px-4 lg:col-span-7 lg:px-6 lg:py-8 xl:col-span-6">
             <div className="max-w-xl lg:max-w-3xl">
               <form onSubmit={handleSubmit} className="mt-4 grid grid-cols-6 gap-4 items-end"> {/* Reduced mt-8 to mt-4 */}
                 {/* Channel Name Input */}

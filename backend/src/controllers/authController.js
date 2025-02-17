@@ -116,7 +116,19 @@ export const signin = async (req, res) => {
 
 export const verifyUser = async(req,res)=>{
   if(!req.user) return res.status(401).json({ message: "Unauthorized" });
-  console.log(req.user);
+  // console.log(req.user);
   res.status(200).send({user:req.user});
   console.log(req.user);
+}
+
+export const signout = async(req,res) =>{
+  try{
+  res.clearCookie("authToken",{path:"/"});
+  console.log("Logged out");
+  res.status(200).send({message:"User logged out"});
+  }
+  catch(error){
+    res.status(500).send("Unable to log out");
+    console.error(error.message);
+  }
 }
