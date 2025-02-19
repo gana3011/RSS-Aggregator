@@ -98,9 +98,37 @@ export const signin = async (req, res) => {
       {expiresIn: "7d"}
     );
 
+    res.cookie("authToken", userJWT, {
+      httpOnly: true,
+      // secure: process.env.NODE_ENV === "production", 
+      sameSite: "Lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",       
+  });
+
+  console.log(res.cookies);
     res.json({ token:userJWT, id:existingUser.id, message: "User logged in successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).send({message : "Server error! Try again"});
   }
 };
+
+export const verifyUser = async(req,res)=>{
+  if(!req.user) return res.status(401).json({ message: "Unauthorized" });
+  // console.log(req.user);
+  res.status(200).send({user:req.user});
+  console.log(req.user);
+}
+
+export const signout = async(req,res) =>{
+  try{
+  res.clearCookie("authToken",{path:"/"});
+  console.log("Logged out");
+  res.status(200).send({message:"User logged out"});
+  }
+  catch(error){
+    res.status(500).send("Unable to log out");
+    console.error(error.message);
+  }
+}

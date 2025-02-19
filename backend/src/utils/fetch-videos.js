@@ -12,10 +12,11 @@ export const fetchVideos = async(rssId) =>{
         const id = video["yt:videoId"];
         const title = video.title;
         const link = video.link.$.href
+        const published = video.published;
         const mediaGroup = video["media:group"];
         const thumbnailUrl = mediaGroup["media:thumbnail"].$.url;
         const views = mediaGroup["media:community"]["media:statistics"].$.views;
-        videos.push({id,title,link,thumbnailUrl,views});
+        videos.push({id,title,link,published,thumbnailUrl,views});
     });
     return videos;
 }

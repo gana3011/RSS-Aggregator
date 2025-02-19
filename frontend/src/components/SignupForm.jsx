@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import {jwtDecode} from "jwt-decode";
-// import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
 
@@ -12,8 +10,9 @@ const SignupForm = () => {
     password: "",
     password_confirmation: "",
   });
-  const [loading, setLoading] = useState(false);
+
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e)=>{
     setFormData({...formData,[e.target.name] : e.target.value});
@@ -50,13 +49,13 @@ const SignupForm = () => {
     <div>
 
 <section className="bg-white">
-  <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+  <div className="lg:min-h-screen lg:grid-cols-12">
     <main
       className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6"
     >
       <div className="max-w-xl lg:max-w-3xl">
 
-        <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-6 gap-6">
+        <form onSubmit={handleSubmit} className="mt-30 grid grid-cols-6 gap-6">
           <div className="col-span-6 sm:col-span-3">
             <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
               Name
@@ -119,10 +118,10 @@ const SignupForm = () => {
           <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
           <button
   disabled={loading}
-  className={`inline-block shrink-0 rounded-md border border-blue-600 px-12 py-3 text-sm font-medium text-white transition ${
+  className={`inline-block shrink-0 rounded-md border border-rose-600 px-12 py-3 text-sm font-medium text-white transition ${
     loading
       ? "bg-gray-400 cursor-not-allowed"
-      : "bg-blue-600 hover:bg-transparent hover:text-blue-600"
+      : "bg-rose-600 hover:bg-transparent hover:text-rose-600"
   }`}
 >
   {loading ? "Wait..." : "Create an account"}
@@ -132,7 +131,7 @@ const SignupForm = () => {
               Already have an account?
               <div className="text-gray-700 underline"><Link to="/signin">Log in.</Link></div>
             </div>
-          </div>
+           </div>
           {message &&
           <p>{message}</p>}
         </form>

@@ -15,25 +15,63 @@ export const fetchUpdates = async(userId)=>{
                 return {channelUpdates,videoUpdates};
             })
         )
+        console.log(results);
     } catch (error) {
         console.error(error.message);
     }
    
 }
 
-const fetchVideoUpdates  = async(rssId,channelId)=>{
+const fetchVideoUpdates = async (rssId, channelId) => {
+    const maxVideos = 15;
     try {
         const videos = await fetchVideos(rssId);
-        for(let video of videos){
-            const {id,title, link, thumbnailUrl, views} = video;
-            await pool.query("update videos set title=$1, link=$2, thumbnailurl=$3, views=$4 where video_id=$5",[ title, link, thumbnailUrl, views, id]);
-        }
-        return {message:`Video details updated for ${channelId}`};
+
+        await Promise.all(videos.map(async (video) => {
+            const { id, title, link, published, thumbnailUrl, views } = video;
+
+            // Check if video exists
+            const existingVideo = await pool.query(
+                "SELECT video_id FROM videos WHERE video_id = $1", 
+                [id]
+            );
+
+            if (existingVideo.rowCount > 0) {
+                // Update existing video
+                await pool.query(
+                    `UPDATE videos 
+                     SET title=$1, link=$2, thumbnailurl=$3, views=$4 
+                     WHERE video_id=$5`,
+                    [title, link, thumbnailUrl, views, id]
+                );
+            } else {
+                // Insert new video
+                await pool.query(
+                    `INSERT INTO videos (video_id, channel_id, title, link, thumbnailurl, views, published) 
+                     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+                    [id, channelId, title, link, thumbnailUrl, views, published]
+                );
+            }
+        }));
+
+        // Keep only latest `maxVideos` (Delete excess videos)
+        await pool.query(
+            `DELETE FROM videos 
+             WHERE video_id IN (
+                SELECT video_id FROM videos 
+                WHERE channel_id = $1 
+                ORDER BY published ASC 
+                OFFSET $2
+             )`,
+            [channelId, maxVideos]
+        );
+
+        return { message: `Video updates processed for ${channelId}` };
     } catch (error) {
-        console.error(error.message);
-        return {message:"Unable to update videos"};
+        console.error("Error in fetchVideoUpdates:", error.message);
+        return { message: "Unable to update or insert videos" };
     }
-}
+};
 
 
 const fetchChannelUpdates = async(rssId) =>{
@@ -50,5 +88,3 @@ const fetchChannelUpdates = async(rssId) =>{
         return { message: "Failed to update channel details" };
     }
 }
-
-fetchUpdates(1);
