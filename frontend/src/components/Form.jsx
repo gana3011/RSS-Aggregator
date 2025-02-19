@@ -37,7 +37,7 @@ const Form = () => {
   return (
     <div>
       <section className="bg-white">
-        <div className="lg:grid lg:pb-10 lg:grid-cols-12"> {/* Reduced min height */}
+        <div> {/* Reduced min height */}
           <main className="flex justify-center px-4 py-4 sm:px-4 lg:col-span-7 lg:px-6 lg:py-8 xl:col-span-6">
             <div className="max-w-xl lg:max-w-3xl">
               <form onSubmit={handleSubmit} className="mt-4 grid grid-cols-6 gap-4 items-end"> {/* Reduced mt-8 to mt-4 */}
@@ -52,7 +52,7 @@ const Form = () => {
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+                    className="mt-1 px-5 py-2 w-full rounded border-[1.1px] border-black bg-white text-sm text-gray-700 shadow-xs"
                     required
                   />
                 </div>
@@ -68,7 +68,7 @@ const Form = () => {
                     name="url"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+                    className="mt-1 px-5 py-2 w-full rounded-md border-[1.1px] border-black bg-white text-sm text-gray-700 shadow-xs"
                     required
                   />
                 </div>

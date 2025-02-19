@@ -19,7 +19,7 @@ const Nav = ({user,setUser}) => {
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
-            <h1 className="text-2xl font-bold sm:text-3xl lg:text-4xl text-rose-700">
+            <h1 className="text-2xl font-bold sm:text-3xl lg:text-4xl text-rose-600">
               FeedTube
             </h1>
           </div>

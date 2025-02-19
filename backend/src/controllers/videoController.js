@@ -8,7 +8,7 @@ export const getVideos  = async (req,res) => {
    }
 
    try {
-    const videos = await pool.query('select * from videos where channel_id  = $1',[channelId]);
+    const videos = await pool.query('select * from videos where channel_id  = $1 order by published desc',[channelId]);
     if(videos.rowCount > 0){
         return res.status(200).send({message:"Videos fetched successfully", videos: videos.rows});
     }

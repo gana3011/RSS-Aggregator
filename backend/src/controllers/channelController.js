@@ -18,8 +18,8 @@ export const saveChannels = async(req, res)=>{
     try {
         const rssId = await fetchChannelId(name, url);
         const subscribers = await fetchSubscribers(rssId);
+        console.log(subscribers);
         const profile = await fetchProfile(rssId);
-        console.log(profile);
         const client = await pool.connect();
         
         try {

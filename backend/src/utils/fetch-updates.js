@@ -15,6 +15,7 @@ export const fetchUpdates = async(userId)=>{
                 return {channelUpdates,videoUpdates};
             })
         )
+        console.log(results);
     } catch (error) {
         console.error(error.message);
     }
@@ -71,7 +72,6 @@ const fetchVideoUpdates = async (rssId, channelId) => {
         return { message: "Unable to update or insert videos" };
     }
 };
-
 
 
 const fetchChannelUpdates = async(rssId) =>{

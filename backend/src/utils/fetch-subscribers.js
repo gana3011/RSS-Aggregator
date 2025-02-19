@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchSubscribers = async (channelId) =>{
-    const apiKey = "AIzaSyDfSbgb7-aGNX04oMm3kOjmxfea1L36qHE";
+    const apiKey = process.env.YT_API_KEY;
     try{
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/channels`, {
             params: {
@@ -13,6 +13,7 @@ export const fetchSubscribers = async (channelId) =>{
           
           if(response.data.items && response.data.items.length>0){
             const {subscriberCount} = response.data.items[0].statistics;
+            console.log(subscriberCount);
             return subscriberCount;
           }
           else {
@@ -24,4 +25,3 @@ export const fetchSubscribers = async (channelId) =>{
         throw new Error(`Failed to fetch subscriber count: ${error.response?.data?.error?.message || error.message}`);
       }
 }
-
