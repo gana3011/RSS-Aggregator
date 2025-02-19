@@ -11,7 +11,7 @@ const Home = () => {
 
     if(loading) return <p>Loading...</p>
    return (
-    <div>
+    <div className="w-full">
       <Nav user={user} setUser={setUser}/>
       <Form />
     </div>
