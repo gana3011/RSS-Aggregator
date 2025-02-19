@@ -4,6 +4,25 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { useAuth } from '../../AuthContext.jsx'
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const CustomNextArrow = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-100 focus:outline-none"
+  >
+    <ChevronRight className="h-6 w-6 text-gray-600" />
+  </button>
+);
+
+const CustomPrevArrow = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-md hover:bg-gray-100 focus:outline-none"
+  >
+    <ChevronLeft className="h-6 w-6 text-gray-600" />
+  </button>
+);
 
 const VideoSlider = ({refresh}) => {
   const [channels,setChannels] = useState([]);
@@ -84,13 +103,13 @@ useEffect(() => {
 
   const settings = {
     arrows: true,
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 5,
-    // nextArrow: <CustomNextArrow />,
-    // prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -110,14 +129,14 @@ useEffect(() => {
   };
 
   return (
-    <div className="max-w-screen-2xl m-6">
+    <div className="max-w-screen-2xl m-5">
       {channels.map((channel) => (
         <div key={channel.channel_id} className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <img
               src={channel.profile}
               alt="channel profile pic"
-              className="rounded-full w-12 h-12 ml-2"
+              className="rounded-full w-12 h-12 ml-5"
             />
             <div className="flex flex-col">
               <a
@@ -161,7 +180,5 @@ useEffect(() => {
     </div>
   );
 };
-
-
 
 export default VideoSlider;
