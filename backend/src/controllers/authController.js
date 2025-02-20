@@ -72,7 +72,6 @@ export const verifyEmail = async(req, res) =>{
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const result =await pool.query("select * from users where email=$1",[email]);
     if (result.rows.length == 0) {
@@ -129,6 +128,46 @@ export const signout = async(req,res) =>{
   }
   catch(error){
     res.status(500).send("Unable to log out");
+    console.error(error.message);
+  }
+}
+
+export const forgotPass = async(req,res) =>{
+  const {email} =  req.body;
+  try {
+    const existingUser = await pool.query("select * from users where email = $1",[email]);
+    if(existingUser.rows.length === 0) return res.status(400).send({message:"Email doesn't exist"});
+    const token = jwt.sign({email}, process.env.JWT_KEY, {expiresIn: "15m"});
+    
+    const verificationLink = `http://localhost:5173/resetPassword/${token}`;
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Reset Password",
+      text: `Click the link below to reset your password:\n${verificationLink}`
+    });
+    return res.status(200).send({message:"Reset link sent"});
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send({message:"Server Error"});
+  }
+}
+
+export const resetPass = async(req,res)=>{
+  const {password} = req.body;
+  console.log(password);
+  const {token} = req.params;
+  try{
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    const user = await pool.query("select * from users where email = $1",[decoded.email]);
+    if(user.rows.length === 0) return res.status(400).send({message:"Invalid token"});
+    const hashedPassword = await Password.toHash(password);
+    const response = await pool.query("update users set password = $1 where email=$2",[hashedPassword,decoded.email]);
+    res.status(200).send({message:"Password reset successfull"});
+  }
+  catch(error){
+    res.status(500).send({message:"Server error"});
     console.error(error.message);
   }
 }

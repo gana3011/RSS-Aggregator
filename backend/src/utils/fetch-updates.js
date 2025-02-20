@@ -15,7 +15,6 @@ export const fetchUpdates = async(userId)=>{
                 return {channelUpdates,videoUpdates};
             })
         )
-        console.log(results);
     } catch (error) {
         console.error(error.message);
     }

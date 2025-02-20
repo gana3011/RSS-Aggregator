@@ -97,10 +97,14 @@ const SigninForm = () => {
               Don't have an account?
              <div className="text-gray-700 underline"><Link to="/signup">Sign up.</Link></div>
             </div>
+            
           </div>
           {message &&
           <p>{message}</p>}
         </form>
+        <div className="text-sm text-rose-500 sm:mt-0">
+              <Link to="/forgotPassword">Forgot Password?</Link>
+        </div>
       </div>
     </main>
   </div>
