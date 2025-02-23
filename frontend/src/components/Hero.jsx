@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-
+import img from '../assets/img.jpg'
 
 const Hero = () => {
   return (
     <div>
 
-<section className="bg-gray-50">
+<section >
   <div className="p-8 md:p-12 lg:px-16 lg:py-24">
     <div className="mx-auto max-w-lg text-center">
       <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">
@@ -27,6 +27,13 @@ const Hero = () => {
           </Link>
         </div>
   </div>
+  <div className="flex justify-center">
+          <img 
+            src={img} 
+            alt="Hero" 
+            className="w-full max-w-3xl h-auto rounded-lg shadow-lg"
+          />
+        </div>
 </section>
 
     </div>

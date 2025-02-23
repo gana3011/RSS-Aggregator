@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import Nav from '../components/Nav';
 
 
 const ResetPassword = () => {
@@ -34,8 +35,8 @@ const ResetPassword = () => {
     }
 
   return (
-
        <div>
+        <Nav />
 <section className="bg-white">
   <div className="lg:min-h-screen lg:grid-cols-12">
     <main

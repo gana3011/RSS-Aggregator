@@ -33,7 +33,15 @@ const Form = () => {
     setName("");
     setUrl("");
   }
-
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => {
+        setMessage("");
+      }, 2000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
   return (
     <div>
       <section className="bg-white">
@@ -86,8 +94,6 @@ const Form = () => {
                     {loading ? "Adding..." : "Add"}
                   </button>
                 </div>
-  
-                {/* Message Display */}
                 {message && <p className="col-span-6 text-sm text-gray-600">{message}</p>}
               </form>
             </div>

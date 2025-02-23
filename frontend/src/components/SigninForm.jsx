@@ -99,14 +99,18 @@ const SigninForm = () => {
             </div>
             
           </div>
-          {message &&
-          <p>{message}</p>}
+          
         </form>
         <div className="text-sm text-rose-500 sm:mt-0">
               <Link to="/forgotPassword">Forgot Password?</Link>
         </div>
+        {message &&
+          <div className=' mt-3 text-rose-500 text-center'>{message}
+          </div>}
       </div>
+     
     </main>
+  
   </div>
 </section>
 

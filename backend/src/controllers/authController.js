@@ -104,8 +104,6 @@ export const signin = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: "/",       
   });
-
-  console.log(res.cookies);
     res.json({ token:userJWT, id:existingUser.id, message: "User logged in successfully" });
   } catch (err) {
     console.error(err);
@@ -117,7 +115,6 @@ export const verifyUser = async(req,res)=>{
   if(!req.user) return res.status(401).json({ message: "Unauthorized" });
   // console.log(req.user);
   res.status(200).send({user:req.user});
-  console.log(req.user);
 }
 
 export const signout = async(req,res) =>{

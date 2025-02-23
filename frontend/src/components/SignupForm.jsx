@@ -133,8 +133,11 @@ const SignupForm = () => {
             </div>
            </div>
           {message &&
-          <p>{message}</p>}
+          <div>{message}</div>}
         </form>
+        {message &&
+          <div className=' mt-3 text-rose-500 text-center'>{message}
+          </div>}
       </div>
     </main>
   </div>

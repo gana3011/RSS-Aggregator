@@ -28,25 +28,24 @@ const VideoSlider = ({refresh}) => {
   const [channels,setChannels] = useState([]);
   const [videos, setVideos] = useState({});
   const {user} = useAuth();
-  useEffect(()=>{
-    const fetchChannel = async()=>{
+  useEffect(() => {
+    let timeout;
+  
+    const fetchChannel = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${user.id}/channels`,
-          { withCredentials: true}
-        );
+        const response = await axios.get(`http://localhost:3000/api/users/${user.id}/channels`, { withCredentials: true });
+  
         if (response.data && Array.isArray(response.data.channels)) {
           const data = response.data.channels.map(channel => {
             let formattedSubscribers;
-          
             if (channel.subscribers < 1_000_000) {
               formattedSubscribers = (channel.subscribers / 1_000).toFixed(1) + "K";
             } else {
               formattedSubscribers = (channel.subscribers / 1_000_000).toFixed(1) + "M";
             }
-          
             return { ...channel, subscribers: formattedSubscribers };
           });
-          
+  
           setChannels(data);
         } else {
           console.error("Unexpected response structure:", response.data);
@@ -54,9 +53,17 @@ const VideoSlider = ({refresh}) => {
       } catch (error) {
         console.error(error.message);
       }
-    }
+  
+      // Schedule the next fetch in 1 hour
+      timeout = setTimeout(fetchChannel, 3600000);
+    };
+  
+    // Fetch initially
     fetchChannel();
-  },[refresh]);
+  
+    return () => clearTimeout(timeout); // Cleanup when component unmounts
+  }, [refresh]);
+  
 
 // useEffect(()=>{
 //   const data = channels.map(channel=>{
@@ -92,7 +99,7 @@ useEffect(() => {
       } catch (error) {
         console.log(error.message);
       }
-  }
+}
   // useEffect(() => {
   //   console.log("Updated Channels:", channels);
   // }, [channels]);

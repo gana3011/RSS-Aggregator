@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import Nav from '../components/Nav.jsx'
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
@@ -24,8 +25,8 @@ const ForgotPassword = () => {
         console.log(email);
     },[]);
   return (
-
       <div>
+        <Nav />
     <section className="bg-white">
   <div className="lg:min-h-screen lg:grid-cols-12">
     <main
