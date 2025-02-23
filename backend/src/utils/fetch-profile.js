@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const fetchProfile = async(channelId) =>{
-    const apiKey = "AIzaSyDfSbgb7-aGNX04oMm3kOjmxfea1L36qHE";
+    const apiKey = process.env.YT_API_KEY;
     try {
         const response = await axios.get(`https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${apiKey}`);
         if (response.data.items.length > 0) {
