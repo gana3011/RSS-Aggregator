@@ -15,7 +15,7 @@ const VerifyEmail = () => {
         setMessage(response.data.message);
         setTimeout(()=>{
           navigate("/")
-        },3000);
+        },1000);
       } catch (error) {
         console.error(error.message);
         setMessage(error.response?.data.message);
