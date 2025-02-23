@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Nav from '../components/Nav';
-import React from 'react';
 import { API_URL } from '../config';
 
 

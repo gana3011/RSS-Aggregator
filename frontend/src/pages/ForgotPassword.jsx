@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
-import React from 'react';
 import { API_URL } from '../config.js';
 
 const ForgotPassword = () => {

@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { useAuth } from '../../AuthContext.jsx'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import React from 'react'
 import { API_URL } from '../config.js'
 
 const CustomNextArrow = ({ onClick }) => (
