@@ -91,7 +91,7 @@ useEffect(() => {
 
   const fetchVideos = async(channelId, channelName) =>{
       try {
-        const response = await axios.get(`${API_URL}/api/users/${user.id}/channels/${channelId}/videos`,{
+        const response = await axios.get(`${API_URL} fr/api/users/${user.id}/channels/${channelId}/videos`,{
           withCredentials: true
         });
         setVideos((prevVideos)=>({

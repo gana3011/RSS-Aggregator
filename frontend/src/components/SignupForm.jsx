@@ -67,7 +67,7 @@ const SignupForm = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+              className="mt-1 px-5 py-2 w-full rounded-md border-[1.1px] border-black bg-white text-sm text-gray-700 shadow-xs"
               required
             />
           </div>
@@ -81,7 +81,7 @@ const SignupForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+              className="mt-1 px-5 py-2 w-full rounded-md border-[1.1px] border-black bg-white text-sm text-gray-700 shadow-xs"
               required
             />
           </div>
@@ -95,7 +95,7 @@ const SignupForm = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+              className="mt-1 px-5 py-2 w-full rounded-md border-[1.1px] border-black bg-white text-sm text-gray-700 shadow-xs"
               required
             />
           </div>
@@ -111,7 +111,7 @@ const SignupForm = () => {
               name="password_confirmation"
               value={formData.password_confirmation}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-xs"
+              className="mt-1 px-5 py-2 w-full rounded-md border-[1.1px] border-black bg-white text-sm text-gray-700 shadow-xs"
               required
             />
           </div>
