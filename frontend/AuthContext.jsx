@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { API_URL } from "./src/config";
 
 // Create Auth Context
 const AuthContext = createContext();
@@ -12,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     // Function to check if the user is authenticated
     const checkAuth = useCallback(async () => {
         try {
-            const response = await axios.get("http://localhost:3000/api/auth/verify", { withCredentials: true });
+            const response = await axios.get(`${API_URL}/api/auth/verify`, { withCredentials: true });
             setUser(response.data.user); // Store user data in state
         } catch (error) {
             setUser(null); // User is not authenticated
