@@ -117,17 +117,22 @@ export const verifyUser = async(req,res)=>{
   res.status(200).send({user:req.user});
 }
 
-export const signout = async(req,res) =>{
-  try{
-  res.clearCookie("authToken",{path:"/"});
-  console.log("Logged out");
-  res.status(200).send({message:"User logged out"});
-  }
-  catch(error){
+export const signout = async (req, res) => {
+  try {
+    res.clearCookie("authToken", {
+      path: "/",
+      httpOnly: true,
+      secure: true,      
+      sameSite: "None",  
+    });
+    console.log("Logged out");
+    res.status(200).send({ message: "User logged out" });
+  } catch (error) {
     res.status(500).send("Unable to log out");
     console.error(error.message);
   }
-}
+};
+
 
 export const forgotPass = async(req,res) =>{
   const {email} =  req.body;
