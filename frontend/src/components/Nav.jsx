@@ -21,7 +21,7 @@ const Nav = ({user,setUser}) => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <h1 className="text-2xl font-bold sm:text-3xl lg:text-4xl text-rose-600">
-              FeedTube
+              <Link to="/">FeedTube</Link>
             </h1>
           </div>
 

@@ -31,7 +31,7 @@ export const signup = async (req, res) => {
 
     const token = jwt.sign({email}, process.env.JWT_KEY, {expiresIn: "1h"});
     
-    const verificationLink = `http://localhost:5173/verifyEmail/${token}`;
+    const verificationLink = `https://feed-tube-frontend.onrender.com/verifyEmail/${token}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -136,7 +136,7 @@ export const forgotPass = async(req,res) =>{
     if(existingUser.rows.length === 0) return res.status(400).send({message:"Email doesn't exist"});
     const token = jwt.sign({email}, process.env.JWT_KEY, {expiresIn: "15m"});
     
-    const verificationLink = `http://localhost:5173/resetPassword/${token}`;
+    const verificationLink = `https://feed-tube-frontend.onrender.com/resetPassword/${token}`;
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
