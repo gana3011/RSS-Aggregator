@@ -13,7 +13,6 @@ export const fetchSubscribers = async (channelId) =>{
           
           if(response.data.items && response.data.items.length>0){
             const {subscriberCount} = response.data.items[0].statistics;
-            console.log(subscriberCount);
             return subscriberCount;
           }
           else {

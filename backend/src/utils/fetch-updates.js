@@ -15,7 +15,7 @@ export const fetchUpdates = async(userId)=>{
                 return {channelUpdates,videoUpdates};
             })
         )
-        console.log(results);
+        // console.log(results);
     } catch (error) {
         console.error(error.message);
     }
@@ -26,6 +26,7 @@ const fetchVideoUpdates = async (rssId, channelId) => {
     const maxVideos = 15;
     try {
         const videos = await fetchVideos(rssId);
+        // console.log(videos);
 
         await Promise.all(videos.map(async (video) => {
             const { id, title, link, published, thumbnailUrl, views } = video;
@@ -46,25 +47,27 @@ const fetchVideoUpdates = async (rssId, channelId) => {
                 );
             } else {
                 // Insert new video
-                await pool.query(
+                const respone = await pool.query(
                     `INSERT INTO videos (video_id, channel_id, title, link, thumbnailurl, views, published) 
                      VALUES ($1, $2, $3, $4, $5, $6, $7)`,
                     [id, channelId, title, link, thumbnailUrl, views, published]
                 );
+                console.log(respone.rowCount);
             }
         }));
 
         // Keep only latest `maxVideos` (Delete excess videos)
-        await pool.query(
+        const response  = await pool.query(
             `DELETE FROM videos 
              WHERE video_id IN (
                 SELECT video_id FROM videos 
                 WHERE channel_id = $1 
-                ORDER BY published ASC 
+                ORDER BY published desc
                 OFFSET $2
              )`,
             [channelId, maxVideos]
         );
+        // console.log(response);
 
         return { message: `Video updates processed for ${channelId}` };
     } catch (error) {
