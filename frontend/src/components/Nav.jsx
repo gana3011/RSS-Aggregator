@@ -1,13 +1,15 @@
 import axios from 'axios';
+import React from 'react';
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const Nav = ({user,setUser}) => {
   const navigate = useNavigate();
 
   const handleLogout = async() =>{
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/signout",{},{withCredentials:true});
+      const response = await axios.post(`${API_URL}/api/auth/signout`,{},{withCredentials:true});
       setUser(null);
       navigate("/");
     } catch (error) {

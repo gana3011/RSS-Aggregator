@@ -99,7 +99,7 @@ export const signin = async (req, res) => {
 
     res.cookie("authToken", userJWT, {
       httpOnly: true,
-      // secure: process.env.NODE_ENV === "production", 
+      secure: true, 
       sameSite: "Lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: "/",       

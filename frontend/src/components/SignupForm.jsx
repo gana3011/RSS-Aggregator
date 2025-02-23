@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import React from 'react';
+import { API_URL } from '../config';
 
 const SignupForm = () => {
 
@@ -27,7 +29,7 @@ const SignupForm = () => {
     }
     else{
     try{
-    const response = await axios.post("http://localhost:3000/api/auth/signup",formData);
+    const response = await axios.post(`${API_URL}/api/auth/signup`,formData);
     setMessage(response.data.message);
     setFormData({
       name: "",

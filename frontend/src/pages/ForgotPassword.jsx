@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav.jsx'
+import React from 'react';
+import { API_URL } from '../config.js';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
@@ -10,7 +12,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/forgot-password",{email});
+            const response = await axios.post(`${API_URL}/api/auth/forgot-password`,{email});
             setMessage(response.data.message);
             setEmail("");
         } catch (error) {

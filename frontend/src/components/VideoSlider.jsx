@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { useAuth } from '../../AuthContext.jsx'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react'
+import { API_URL } from '../config.js'
 
 const CustomNextArrow = ({ onClick }) => (
   <button
@@ -33,7 +35,7 @@ const VideoSlider = ({refresh}) => {
   
     const fetchChannel = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${user.id}/channels`, { withCredentials: true });
+        const response = await axios.get(`${API_URL}/api/users/${user.id}/channels`, { withCredentials: true });
   
         if (response.data && Array.isArray(response.data.channels)) {
           const data = response.data.channels.map(channel => {

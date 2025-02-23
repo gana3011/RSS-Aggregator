@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import VideoSlider from './VideoSlider.jsx';
 import { useAuth } from '../../AuthContext.jsx';
+import { API_URL } from '../config.js';
 
 
 const Form = () => {
@@ -19,7 +20,7 @@ const Form = () => {
     
     const data = {name, url};
     try {
-      const response = await axios.post(`http://localhost:3000/api/users/${user.id}/channels`,data, 
+      const response = await axios.post(`${API_URL}/api/users/${user.id}/channels`,data, 
       { withCredentials: true});
       setMessage(response.data.message);
       setRefresh((prev) => prev + 1);

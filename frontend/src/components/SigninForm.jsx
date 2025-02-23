@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext.jsx';
+import React from 'react';
+import { API_URL } from '../config.js';
 
 
 const SigninForm = () => {
@@ -27,7 +29,7 @@ const SigninForm = () => {
     setLoading(true);
     const {email, password} = formData;
     try{
-    const response = await axios.post("http://localhost:3000/api/auth/signin",formData,{withCredentials:true});
+    const response = await axios.post(`${API_URL}/api/auth/signin`,formData,{withCredentials:true});
     const{token, id} = response.data;
     await checkAuth();
     // localStorage.setItem("token", token);
