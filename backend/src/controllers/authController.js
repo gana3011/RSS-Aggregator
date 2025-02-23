@@ -1,7 +1,7 @@
 import { Password } from "../utils/password.js";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
-import { pool } from "../utils/database.js";
+import { pool } from '../utils/database.js'
 import dotenv from "dotenv";
 
 dotenv.config();
