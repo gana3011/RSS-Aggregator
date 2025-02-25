@@ -10,7 +10,11 @@ const Landing = () => {
     const [isAuthChecked, setIsAuthChecked] = useState(false); // Track if checkAuth() completed
 
     useEffect(() => {
-        checkAuth().then(() => setIsAuthChecked(true)); // Ensure checkAuth completes
+      const verifyAuth = async () => {
+        await checkAuth();
+        setIsAuthChecked(true);
+    };
+    verifyAuth();
     }, [checkAuth]);
 
     useEffect(() => {
